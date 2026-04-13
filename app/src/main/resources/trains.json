@@ -1,0 +1,45 @@
+[ {
+  "train_id" : "TRN001",
+  "train_no" : "12301",
+  "seats" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+  "station_times" : {
+    "delhi" : "06:00",
+    "agra" : "08:30",
+    "mumbai" : "14:00"
+  },
+  "stations" : [ "delhi", "agra", "mumbai" ],
+  "train_info" : "Train ID: TRN001 | Train No: 12301 | Stations: [delhi, agra, mumbai]"
+}, {
+  "train_id" : "TRN002",
+  "train_no" : "12201",
+  "seats" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+  "station_times" : {
+    "mumbai" : "07:00",
+    "pune" : "09:30",
+    "bangalore" : "16:00"
+  },
+  "stations" : [ "mumbai", "pune", "bangalore" ],
+  "train_info" : "Train ID: TRN002 | Train No: 12201 | Stations: [mumbai, pune, bangalore]"
+}, {
+  "train_id" : "TRN003",
+  "train_no" : "12059",
+  "seats" : [ [ 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+  "station_times" : {
+    "delhi" : "08:00",
+    "jaipur" : "11:00",
+    "jodhpur" : "15:30"
+  },
+  "stations" : [ "delhi", "jaipur", "jodhpur" ],
+  "train_info" : "Train ID: TRN003 | Train No: 12059 | Stations: [delhi, jaipur, jodhpur]"
+}, {
+  "train_id" : "TRN004",
+  "train_no" : "12303",
+  "seats" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+  "station_times" : {
+    "kolkata" : "05:00",
+    "patna" : "10:00",
+    "delhi" : "18:00"
+  },
+  "stations" : [ "kolkata", "patna", "delhi" ],
+  "train_info" : "Train ID: TRN004 | Train No: 12303 | Stations: [kolkata, patna, delhi]"
+} ]
