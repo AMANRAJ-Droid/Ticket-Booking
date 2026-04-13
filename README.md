@@ -56,8 +56,8 @@ ticketBooking/
 
 ```bash
 # Clone the repo
-git clone <your-repo-url>
-cd ticketBooking
+git clone https://github.com/AMANRAJ-Droid/Ticket-Booking
+cd Ticket-Booking
 
 # Run (Linux/Mac)
 ./gradlew run
@@ -85,7 +85,7 @@ All data is stored locally as JSON files in `app/src/main/resources/`:
 
 | Library | Purpose |
 |---------|---------|
-| Java 11 | Language |
+| Java 23 | Language |
 | Gradle 8.5 | Build tool |
 | Jackson Databind 2.12.6 | JSON serialization |
 | Lombok 1.18.22 | Boilerplate reduction |
