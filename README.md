@@ -1,8 +1,12 @@
 # Train Ticket Booking System
 
-A Java CLI application for booking train tickets. Built with Gradle, Jackson (JSON persistence), Lombok, and jBCrypt for password hashing.
+A Java backend application for booking train tickets, built with Spring Boot REST API, BCrypt authentication, and JSON file persistence.
 
-## Project Structure
+## What's inside
+
+Originally a CLI application, this project has been upgraded to a full REST API using Spring Boot. The service layer, entities, and data persistence remain unchanged — Spring Boot wraps them with HTTP endpoints.
+
+## Project structure
 
 ```
 ticketBooking/
@@ -11,83 +15,147 @@ ticketBooking/
 │   └── src/
 │       └── main/
 │           ├── java/ticket/booking/
-│           │   ├── App.java                          # Main entry point (CLI menu)
+│           │   ├── App.java                          # Spring Boot entry point
+│           │   ├── controllers/
+│           │   │   ├── AuthController.java            # Sign-up, login endpoints
+│           │   │   └── TicketController.java          # Search, book, cancel endpoints
 │           │   ├── entities/
 │           │   │   ├── Train.java                    # Train entity
 │           │   │   ├── Ticket.java                   # Ticket entity
 │           │   │   └── User.java                     # User entity
 │           │   ├── services/
-│           │   │   ├── TrainService.java              # Train operations
-│           │   │   └── UserBookingService.java        # User & booking operations
+│           │   │   ├── TrainService.java              # Train search operations
+│           │   │   └── UserBookingService.java        # User, booking, cancellation logic
 │           │   └── util/
 │           │       └── UserServiceUtil.java           # BCrypt password utilities
 │           └── resources/
-│               ├── trains.json                       # Train data (auto-seeded)
+│               ├── application.properties            # Server config (port 8080)
+│               ├── trains.json                       # Train data
 │               └── users.json                        # User data (persisted)
-├── gradlew
-├── gradlew.bat
-└── settings.gradle
+├── settings.gradle
+└── README.md
 ```
 
-## Features
+## Tech stack
 
-- **Sign Up** — Create a new account (password stored as bcrypt hash)
-- **Login** — Authenticate with username and password
-- **Search Trains** — Find trains between any two stations
-- **Book a Seat** — Select a train and book an available seat
-- **View Bookings** — See all your booked tickets
-- **Cancel a Ticket** — Cancel a booking and free up the seat
+| Library | Version | Purpose |
+|---|---|---|
+| Java | 17 | Language |
+| Spring Boot | 3.2.0 | REST API, embedded Tomcat server |
+| Gradle | 8.5 | Build tool |
+| Jackson Databind | managed by Spring | JSON serialisation |
+| Lombok | 1.18.22 | Boilerplate reduction |
+| jBCrypt | 0.4 | Password hashing |
 
-## Pre-loaded Train Routes
-
-| Train No | Route |
-|----------|-------|
-| 12301 | Delhi → Agra → Mumbai |
-| 12201 | Mumbai → Pune → Bangalore |
-| 12059 | Delhi → Jaipur → Jodhpur |
-| 12303 | Kolkata → Patna → Delhi |
-
-## Prerequisites
-
-- Java 11 or higher
-- Git (to clone)
-
-## How to Run
+## How to run
 
 ```bash
 # Clone the repo
 git clone https://github.com/AMANRAJ-Droid/Ticket-Booking
 cd Ticket-Booking
 
-# Run (Linux/Mac)
-./gradlew run
+# Start the server (Linux/Mac)
+./gradlew bootRun
 
-# Run (Windows)
-gradlew.bat run
+# Start the server (Windows)
+gradlew.bat bootRun
 ```
 
-On the first run, train data is automatically seeded into `trains.json`.
+Server starts on `http://localhost:8080`
 
-## How to Build a JAR
+## API endpoints
 
-```bash
-./gradlew build
-# Output: app/build/libs/app.jar
+### Auth
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/signup` | Register a new user |
+| POST | `/api/auth/login` | Authenticate a user |
+
+**Sign up**
+```json
+POST /api/auth/signup
+{
+  "username": "aman",
+  "password": "secret123"
+}
 ```
 
-## Data Storage
+**Login**
+```json
+POST /api/auth/login
+{
+  "username": "aman",
+  "password": "secret123"
+}
+```
 
-All data is stored locally as JSON files in `app/src/main/resources/`:
+### Tickets
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/tickets/trains?source=delhi&destination=mumbai` | Search trains |
+| POST | `/api/tickets/book` | Book a seat |
+| GET | `/api/tickets/bookings?username=aman&password=secret123` | View my bookings |
+| DELETE | `/api/tickets/cancel?ticketId=abc&username=aman&password=secret123` | Cancel a ticket |
+
+**Book a ticket**
+```json
+POST /api/tickets/book
+{
+  "username": "aman",
+  "password": "secret123",
+  "source": "delhi",
+  "destination": "mumbai",
+  "dateOfTravel": "2026-05-23",
+  "train": { "trainId": "TRN001" }
+}
+```
+
+## Pre-loaded train routes
+
+| Train No | Route |
+|---|---|
+| 12301 | delhi → agra → mumbai |
+| 12201 | mumbai → pune → bangalore |
+| 12059 | delhi → jaipur → jodhpur |
+| 12303 | kolkata → patna → delhi |
+
+Note: station names are lowercase in the data — use lowercase in search queries.
+
+## Architecture
+
+```
+HTTP Request
+     ↓
+@RestController  (AuthController, TicketController)
+     ↓  @Autowired
+@Service         (UserBookingService, TrainService)
+     ↓  Jackson ObjectMapper
+JSON Files       (users.json, trains.json)
+```
+
+Spring Boot handles dependency injection via `@Autowired`. Controllers delegate all business logic to service classes — the service layer is unchanged from the original CLI version.
+
+## Security
+
+Passwords are never stored in plaintext. On sign-up, jBCrypt hashes the password with a random salt. On login, `BCrypt.checkpw()` compares the input against the stored hash without reversing it.
+
+## Data storage
+
+All data is persisted locally as JSON files in `app/src/main/resources/`:
+
 - `users.json` — registered users and their booked tickets
-- `trains.json` — train data including seat availability
+- `trains.json` — train routes and seat availability (0 = free, 1 = booked)
 
-## Tech Stack
+## Known limitations & planned improvements
 
-| Library | Purpose |
-|---------|---------|
-| Java 23 | Language |
-| Gradle 8.5 | Build tool |
-| Jackson Databind 2.12.6 | JSON serialization |
-| Lombok 1.18.22 | Boilerplate reduction |
-| jBCrypt 0.4 | Password hashing |
-| JUnit 4.13.2 | Testing |
+- [ ] Replace JSON file storage with MySQL + Spring Data JPA
+- [ ] Add JWT token authentication
+- [ ] Fix seat booking race condition with database-level locking
+- [ ] Add JUnit tests for service layer
+- [ ] Add custom exception handling (SeatUnavailableException, TrainNotFoundException)
+
+## About
+
+Built by Aman Raj — B.Tech CSE, Ramgarh Engineering College, Jharkhand.
