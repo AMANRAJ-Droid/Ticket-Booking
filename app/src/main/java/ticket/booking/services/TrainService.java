@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import org.springframework.stereotype.Service;
+@Service
 public class TrainService {
 
     private List<Train> trainList;
@@ -47,6 +48,7 @@ public class TrainService {
                 })
                 .collect(Collectors.toList());
     }
+
 
     public Optional<Train> getTrainById(String trainId) {
         return trainList.stream()

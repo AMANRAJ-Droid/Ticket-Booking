@@ -1,0 +1,7 @@
+[ {
+  "name" : "aman",
+  "password" : "secret123",
+  "hashed_password" : "$2a$10$AafYhzX9jJaQU.Zh.uGJp.Cc60paRx5jktJOfiRoAVN4BnVk0cI0C",
+  "tickets_booked" : [ ],
+  "user_id" : "b2e51585-e225-4c2c-8490-aca92830d876"
+} ]

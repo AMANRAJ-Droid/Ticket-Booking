@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserBookingService {
 
     private User currentUser;
@@ -183,7 +185,8 @@ public class UserBookingService {
         return null;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public List<Ticket> getCurrentUserTickets() {
+        if (currentUser == null) return new ArrayList<>();
+        return currentUser.getTicketsBooked();
     }
 }

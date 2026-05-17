@@ -4,4 +4,10 @@
   "hashed_password" : "$2a$10$w9ebqh/bw.m7wgJtcsWk3e04wNNDKLkWvr/2x7bOkOu0kN8hEIW/S",
   "tickets_booked" : [ ],
   "user_id" : "7d59bbc2-29cc-49f1-a4ba-1c27b0825181"
+}, {
+  "name" : "weqr",
+  "password" : "2213456",
+  "hashed_password" : "$2a$10$llc81J3rdah8zVjM5TeR8ewxPCCcMeTj0CnQqKoiA30EVbCvP1nG2",
+  "tickets_booked" : [ ],
+  "user_id" : "dba11bd3-0821-44be-b0ee-cfe1642995df"
 } ]
